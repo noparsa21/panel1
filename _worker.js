@@ -635,7 +635,7 @@ export default {
 
                     if (isRealBrowser && !isCustomUaAllowed) {
                         if (isValidUser) {
-                            const subscriptionUrl = env.SUBSCRIPTION_URL || 'https://raw.githubusercontent.com/itsyebekhe/nahan/main/subscription.html';
+                           const subscriptionUrl = env.SUBSCRIPTION_URL || 'https://raw.githubusercontent.com/noparsa21/panel1/main/subscription.html';
                             try {
                                 const resp = await fetch(subscriptionUrl);
                                 let html = await resp.text();
