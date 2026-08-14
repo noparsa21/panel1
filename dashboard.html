@@ -2595,7 +2595,7 @@ proxyip.cmliussss.net" class="w-full px-4 py-3 rounded-xl border border-slate-20
           }
 
           let lang = localStorage.getItem('lang') || 'fa';
-          let sessionKey = "", baseRoute = window.location.pathname.split('/dash')[0];
+          let sessionKey = "", baseRoute = window.location.pathname.split('/pan')[0];
           let hostName = window.location.hostname, localUUID = "";
 
           window.addEventListener('DOMContentLoaded', () => {
@@ -3470,7 +3470,7 @@ proxyip.cmliussss.net" class="w-full px-4 py-3 rounded-xl border border-slate-20
                       if (newApiRoute && newApiRoute !== prevApiRoute) {
                           // API route changed — must redirect to new URL
                           baseRoute = '/' + newApiRoute;
-                          setTimeout(() => { window.location.href = '/' + newApiRoute + '/dash'; }, 1000);
+                          setTimeout(() => { window.location.href = '/' + newApiRoute + '/pan'; }, 1000);
                       } else {
                           // Same route — just refresh data silently, no reload
                           baseRoute = '/' + (newApiRoute || prevApiRoute);
