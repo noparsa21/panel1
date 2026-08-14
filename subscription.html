@@ -142,6 +142,11 @@
             margin-top: 10px;
         }
 
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
         .theme-btn {
             position: fixed;
             top: 16px;
@@ -171,6 +176,7 @@
             opacity: 0;
             transition: opacity 0.3s;
             pointer-events: none;
+            z-index: 100;
         }
 
         .toast.show {
@@ -201,8 +207,12 @@
         <div class="link-box">
             <label>لینک اشتراک</label>
             <input type="text" class="link-input" id="subLink" value="__SYNC_NORMAL__" readonly>
-            <button class="btn" onclick="copyLink()">کپی لینک اشتراک</button>
-            <button class="btn secondary" onclick="copyRaw()">کپی لینک خام</button>
+            
+            <button class="btn" onclick="copySubLink()">کپی لینک اشتراک</button>
+            
+            <button class="btn secondary" id="copyConfigBtn" onclick="copyConfigs()">
+                &lt;&lt;کپی لینک vless/trojan &gt;&gt;
+            </button>
         </div>
     </div>
 
@@ -215,22 +225,56 @@
             btn.textContent = document.body.classList.contains('dark') ? '☀️' : '🌙';
         }
 
-        function showToast() {
+        function showToast(text = 'کپی شد!') {
             const toast = document.getElementById('toast');
+            toast.textContent = text;
             toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 1800);
+            setTimeout(() => toast.classList.remove('show'), 2000);
         }
 
-        function copyLink() {
+        function copySubLink() {
             const link = document.getElementById('subLink');
             link.select();
-            navigator.clipboard.writeText(link.value).then(showToast);
+            navigator.clipboard.writeText(link.value)
+                .then(() => showToast('لینک اشتراک کپی شد'))
+                .catch(() => showToast('خطا در کپی'));
         }
 
-        function copyRaw() {
-            const link = document.getElementById('subLink').value;
-            const rawLink = link + (link.includes('?') ? '&flag=raw' : '?flag=raw');
-            navigator.clipboard.writeText(rawLink).then(showToast);
+        async function copyConfigs() {
+            const btn = document.getElementById('copyConfigBtn');
+            const originalText = btn.innerHTML;
+            btn.disabled = true;
+            btn.innerHTML = 'در حال دریافت...';
+
+            try {
+                const subUrl = document.getElementById('subLink').value;
+                // درخواست با flag=raw تا خود کانفیگ‌های vless/trojan برگرده
+                const rawUrl = subUrl + (subUrl.includes('?') ? '&flag=raw' : '?flag=raw');
+
+                const response = await fetch(rawUrl);
+                
+                if (!response.ok) {
+                    throw new Error('خطا در دریافت کانفیگ');
+                }
+
+                let configs = await response.text();
+                
+                // پاک کردن فضای خالی اضافی
+                configs = configs.trim();
+
+                if (!configs) {
+                    throw new Error('کانفیگی یافت نشد');
+                }
+
+                await navigator.clipboard.writeText(configs);
+                showToast('کانفیگ‌ها کپی شدند');
+            } catch (err) {
+                console.error(err);
+                showToast('خطا در دریافت کانفیگ‌ها');
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalText;
+            }
         }
     </script>
 </body>
