@@ -498,7 +498,7 @@ export default {
 
             if (!isTelemetryStream) {
                 if (reqPath === routes.dash) {
-                    const dashboardUrl = env.DASHBOARD_URL || 'https://raw.githubusercontent.com/noparsa21/panel1/main/dashboard.html';
+                    const dashboardUrl = env.DASHBOARD_URL || 'https://raw.githubusercontent.com/itsyebekhe/nahan/main/dashboard.html';
                     try {
                         const resp = await fetch(dashboardUrl);
                         let html = await resp.text();
