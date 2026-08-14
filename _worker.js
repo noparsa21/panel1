@@ -457,7 +457,7 @@ export default {
 
             const routes = {
                 data: `/${encodeURI(sysConfig.apiRoute)}`,
-                dash: `/${encodeURI(sysConfig.apiRoute)}/dash`,
+                dash: `/${encodeURI(sysConfig.apiRoute)}/pan`,
                 auth: `/${encodeURI(sysConfig.apiRoute)}/api/auth`,
                 sync: `/${encodeURI(sysConfig.apiRoute)}/api/sync`,
                 tg: `/${encodeURI(sysConfig.apiRoute)}/tg`,
@@ -1233,7 +1233,7 @@ async function sendTelegramMessage(request, type, hostName) {
     const locT = (key) =>
         botI18n[langCode]?.[key] || botI18n["en"]?.[key] || key;
     const isPaused = sysConfig.isPaused || false;
-    const panelUrl = `https://${h}/${encodeURI(sysConfig.apiRoute)}/dash`;
+    const panelUrl = `https://${h}/${encodeURI(sysConfig.apiRoute)}/pan`;
     const subUrl = `https://${h}/${sysConfig.apiRoute}`;
     const inline_keyboard = [
         [
@@ -3275,7 +3275,7 @@ async function handleTelegramWebhook(request, env, hostName, ctx) {
                 `👥 **${t("users")}**: ${users.length} (${activeCount} ${t("count_active")}, ${pausedCount} ${t("count_paused")}, ${autoDisabledCount} ${t("count_disabled")})\n` +
                 `━━━━━━━━━━━━━━━━`;
             const panelUrl = isLocal
-                ? `https://${hostName}/${encodeURI(sysConfig.apiRoute)}/dash`
+                ? `https://${hostName}/${encodeURI(sysConfig.apiRoute)}/pan`
                 : null;
             const subUrl = `https://${hostName}/${sysConfig.apiRoute}`;
             /** @type {any} */
