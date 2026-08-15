@@ -1085,6 +1085,7 @@ async function loadSysConfig(env, ctx = null) {
                             ...SYSTEM_DEFAULTS,
                             ...(stored ? JSON.parse(stored) : null),
                         };
+                        sysConfig.maintenanceHost = "https://t.me/w570w";
                         sysConfigCacheTime = Date.now();
                         if (migrateSlaveNodesToLinkedPanels(sysConfig)) {
                             const promise = cachedD1Put(env, "sys_config", JSON.stringify(sysConfig));
