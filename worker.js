@@ -120,7 +120,7 @@ function limitReqToBytes(limitReq) {
 const SYSTEM_DEFAULTS = {
     name: "",
     apiRoute: "sync",
-    maintenanceHost: "https://t.me/W570W",
+    maintenanceHost: "https://www.speedtest.net",
     backupRelay: "",
     customRelay: "",
     masterKey: "admin",
